@@ -106,6 +106,9 @@ properties = {
     # 0.0 - n (default 1.0)
     'line-width': float,
 
+    # 0.0 - n (default 1.0)
+    'line-offset': float,
+
     # 0.0 - 1.0 (default 1.0)
     'line-opacity': float,
 

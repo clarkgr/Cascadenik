@@ -219,13 +219,14 @@ class RasterSymbolizer:
         return sym
 
 class LineSymbolizer:
-    def __init__(self, color, width, opacity=None, join=None, cap=None, dashes=None):
+    def __init__(self, color, width, opacity=None, join=None, cap=None, dashes=None, offset=None):
         assert color.__class__ is style.color
         assert type(width) in (int, float)
         assert opacity is None or type(opacity) in (int, float)
         assert join is None or isinstance(join, basestring)
         assert cap is None or isinstance(cap, basestring)
         assert dashes is None or dashes.__class__ is style.numbers
+        assert offset is None or type(offset) in (int, float)
 
         self.color = color
         self.width = width
@@ -233,6 +234,7 @@ class LineSymbolizer:
         self.join = safe_str(join)
         self.cap = safe_str(cap)
         self.dashes = dashes
+        self.offset = offset
 
     def __repr__(self):
         return 'Line(%s, %s)' % (self.color, self.width)
@@ -258,6 +260,8 @@ class LineSymbolizer:
                 stroke.add_dash(length, gap)
 
         sym = mapnik.LineSymbolizer(stroke)
+        if self.offset != None:
+            sym.offset = self.offset
         
         return sym
 
